@@ -21,6 +21,16 @@ export class CompanyService {
     );
   }
 
+  deleteCompany(company: Company): Observable<Company> {
+
+    console.log('SERVICE - calling DeleteCompany', company);
+
+    return this.httpClient.delete<Company>(`${this.baseUrl}/company/${company.id}`)
+    .pipe(
+      catchError(error => this.errorHandler(error))
+    );
+  }
+
   errorHandler(error): Observable<any> {
     console.error('ERROR', error);
     return of([]);

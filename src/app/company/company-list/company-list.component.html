@@ -17,7 +17,7 @@
         <td> {{ company.phone }} </td>
         <td> {{ company.email }} </td>
         <td class="button-cell">
-          <button class="btn btn-danger"> DELETE </button>
+          <button class="btn btn-danger" (click)="deleteCompany(company)" > DELETE </button>
           <button class="btn btn-warning"> EDIT </button>
         </td>
       </tr>

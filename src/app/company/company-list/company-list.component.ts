@@ -20,9 +20,21 @@ export class CompanyListComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.companies$ = this.companyService.getCompanies().pipe(
+    this.companies$ = this.getCompanies();
+  }
+
+  getCompanies() {
+    return this.companyService.getCompanies()
+    .pipe(
       tap(x => console.log('got companies', x))
     );
+  }
+
+  deleteCompany(company: Company) {
+    console.log('COMPONENT - calling DeleteCompany', company);
+
+    this.companyService.deleteCompany(company)
+    .subscribe(() => this.companies$ = this.getCompanies());
   }
 
 
