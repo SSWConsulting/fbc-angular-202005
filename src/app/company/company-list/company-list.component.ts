@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Company } from '../company';
 import { CompanyService } from '../company.service';
+import { ConditionalExpr } from '@angular/compiler';
+import { Subscription, Observable } from 'rxjs';
+import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'fbc-company-list',
@@ -9,14 +12,17 @@ import { CompanyService } from '../company.service';
 })
 export class CompanyListComponent implements OnInit {
 
-  companies: Company[];
+  companies$: Observable<Company[]>;
 
   constructor(
     private companyService: CompanyService
   ) {}
 
+
   ngOnInit(): void {
-    this.companies = this.companyService.getCompanies();
+    this.companies$ = this.companyService.getCompanies().pipe(
+      tap(x => console.log('got companies', x))
+    );
   }
 
 
@@ -24,5 +30,3 @@ export class CompanyListComponent implements OnInit {
 }
 
 
-
-// BACK AT 13:30 (Brisbane Time)
